@@ -1,18 +1,13 @@
 {
-    "version": "5.2.0",
-    "summary": "A pure Elm representation of Elm Html",
-    "repository": "https://github.com/eeue56/elm-html-in-elm.git",
+    "version": "1.0.0",
+    "summary": "A way to pretty print JSON objects",
+    "repository": "https://github.com/eeue56/elm-pretty-print-json.git",
     "license": "BSD3",
     "source-directories": [
         "src"
     ],
     "exposed-modules": [
-        "ElmHtml.Constants",
-        "ElmHtml.InternalTypes",
-        "ElmHtml.Markdown",
-        "ElmHtml.ToString",
-        "ElmHtml.ToElmString",
-        "ElmHtml.ToHtml"
+        "Json.PrettyPrint"
     ],
     "dependencies": {
         "elm-lang/core": "5.0.0 <= v < 6.0.0",

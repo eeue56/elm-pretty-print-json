@@ -1,4 +1,8 @@
-module Json.PrettyPrint exposing (..)
+module Json.PrettyPrint exposing (toString, stringify)
+
+{-| Hello
+@docs toString, stringify
+-}
 
 import Json.Decode
 import Dict exposing (Dict)
@@ -23,6 +27,8 @@ decodeToInternalJson =
         ]
 
 
+{-| Takes a JSON value and turns it into a string
+-}
 toString : Json.Decode.Value -> String
 toString value =
     case Json.Decode.decodeValue decodeToInternalJson value of
@@ -33,6 +39,8 @@ toString value =
             internalJsonToString v
 
 
+{-| Takes a JSON string and formats it
+-}
 stringify : String -> String
 stringify value =
     case Json.Decode.decodeString decodeToInternalJson value of
