@@ -1,7 +1,7 @@
 module Json.PrettyPrint exposing (..)
 
-import Json.Decode
 import Dict exposing (Dict)
+import Json.Decode
 
 
 type InternalJson
@@ -10,6 +10,7 @@ type InternalJson
     | JsonBool Bool
     | JsonObject (Dict String InternalJson)
     | JsonList (List InternalJson)
+    | JsonNull (Maybe InternalJson)
 
 
 decodeToInternalJson : Json.Decode.Decoder InternalJson
@@ -19,7 +20,8 @@ decodeToInternalJson =
         , Json.Decode.map JsonNumber Json.Decode.float
         , Json.Decode.map JsonBool Json.Decode.bool
         , Json.Decode.map JsonObject (Json.Decode.lazy (\_ -> Json.Decode.dict decodeToInternalJson))
-        , Json.Decode.map JsonList (Json.Decode.lazy (\_ -> (Json.Decode.list decodeToInternalJson)))
+        , Json.Decode.map JsonList (Json.Decode.lazy (\_ -> Json.Decode.list decodeToInternalJson))
+        , Json.Decode.map JsonNull (Json.Decode.lazy (\_ -> Json.Decode.nullable decodeToInternalJson))
         ]
 
 
@@ -68,3 +70,11 @@ internalJsonToString json =
             List.map internalJsonToString list
                 |> String.join ", "
                 |> (\x -> "[" ++ x ++ "]")
+
+        JsonNull maybeInternalJson ->
+            case maybeInternalJson of
+                Nothing ->
+                    "null"
+
+                Just json ->
+                    internalJsonToString json
