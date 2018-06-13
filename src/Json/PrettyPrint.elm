@@ -74,7 +74,7 @@ internalJsonToString json =
         JsonNull maybeInternalJson ->
             case maybeInternalJson of
                 Nothing ->
-                    "\"null\""
+                    "null"
 
                 Just json ->
                     internalJsonToString json
